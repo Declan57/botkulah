@@ -53,21 +53,15 @@ RUN apt update && apt upgrade -y && \
     libopus-dev \
     && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
     
-# Pypi package Repo upgrade
-RUN pip3 install --upgrade pip setuptools
-
-# Copy Python Requirements to /root/nana
-RUN git clone https://github.com/vishnu175/SPARKZZZ.git /root/userbot
-WORKDIR /root/userbot
-
-# #Copy config file to /root/nana/nana
-# COPY ./userbot/userbot.ini.sample ./userbot/userbot.ini.sample* /root/userbot/userbot/
-
-ENV PATH="/home/userbot/bin:$PATH"
-
-# Install requirements
+RUN pip3 install --upgrade pip setuptools 
+RUN pip3 install --upgrade pip install wheel 
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb
+RUN wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && chmod +x chromedriver && mv -f chromedriver /usr/bin/ && rm chromedriver_linux64.zip
+RUN git clone -b devolop https://github.com/vishnu175/SPARKZZZ /root/userbot
+RUN mkdir /root/userbot/bin/
+WORKDIR /root/userbot/
+RUN chmod +x /usr/local/bin/*
 RUN sudo pip3 install -U -r requirements.txt
-
-# Starting Worker
+RUN sudo chmod o+r /usr/lib/python3/dist-packages/*
 # (c) SPARKZZZ 2020 VISHNU175
 CMD ["bash","sparkzzz/start.sh"]
