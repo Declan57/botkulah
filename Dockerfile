@@ -1,63 +1,60 @@
-# sparkzzz userbot  using Debian Slim Buster image
+# SPARKZZZ userbot  using  Slim Buster image
 FROM python:3.8.6-slim-buster
-MAINTAINER vishnu175/sparkzzz
+MAINTAINER vishnu175/SPARKZZZ
+RUN apt-get update && apt upgrade -y && apt-get install sudo -y
 
-ENV PIP_NO_CACHE_DIR 1
-
-RUN sed -i.bak 's/us-west-2\.ec2\.//' /etc/apt/sources.list
-
-# Installing Required Packages
-RUN apt update && apt upgrade -y && \
-    apt install --no-install-recommends -y \
-    debian-keyring \
-    debian-archive-keyring \
+RUN apt-get install -y\
+    coreutils \
     bash \
+    nodejs \
     bzip2 \
     curl \
     figlet \
     gcc \
+    g++ \
     git \
-    sudo \
     util-linux \
-    libffi-dev \
+    libevent-dev \
     libjpeg-dev \
-    libjpeg62-turbo-dev \
+    libffi-dev \
+    libpq-dev \
     libwebp-dev \
-    linux-headers-amd64 \
-    musl-dev \
+    libxml2 \
+    libxml2-dev \
+    libxslt-dev \
     musl \
     neofetch \
-    python3-lxml \
-    python3-psycopg2 \
-    libpq-dev \
     libcurl4-openssl-dev \
-    libxml2-dev \
-    libxslt1-dev \
-    python3-pip \
-    python3-requests \
-    python3-tz \
-    python3-aiohttp \
+    postgresql \
+    postgresql-client \
+    postgresql-server-dev-all \
     openssl \
-    pv \
-    jq \
+    mediainfo \
     wget \
     python3 \
     python3-dev \
+    python3-pip \
     libreadline-dev \
-    libyaml-dev \
-    sudo \
-    zlib1g \
+    zipalign \
+    sqlite \
     ffmpeg \
-    libssl-dev \
-    libopus0 \
-    libopus-dev \
-    && rm -rf /var/lib/apt/lists /var/cache/apt/archives /tmp
-    
+    libsqlite3-dev \
+    zlib1g-dev \
+    recoverjpeg \
+    zip \
+    megatools \
+    libfreetype6-dev \
+    procps \
+    policykit-1 \
+    p7zip \
+    tree
+
+
 RUN pip3 install --upgrade pip setuptools 
 RUN pip3 install --upgrade pip install wheel 
 RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && apt install -y ./google-chrome-stable_current_amd64.deb && rm google-chrome-stable_current_amd64.deb
 RUN wget https://chromedriver.storage.googleapis.com/84.0.4147.30/chromedriver_linux64.zip && unzip chromedriver_linux64.zip && chmod +x chromedriver && mv -f chromedriver /usr/bin/ && rm chromedriver_linux64.zip
-RUN git clone -b devolop https://github.com/vishnu175/SPARKZZZ /root/userbot
+RUN git clone https://github.com/vishnu175/SPARKZZZ /root/userbot
 RUN mkdir /root/userbot/bin/
 WORKDIR /root/userbot/
 RUN chmod +x /usr/local/bin/*
