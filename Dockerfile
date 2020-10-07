@@ -55,8 +55,12 @@ RUN apt update && apt upgrade -y && \
     
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
+RUN pip3 install --upgrade pip install wheel 
+# Install Chrome
+RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb; apt-get -fy install
 
-# Copy Python Requirements to /root/nana
+# Copy Python Requirements to /root/sparkzzz
 RUN git clone https://github.com/vishnu175/SPARKZZZ.git /root/userbot
 WORKDIR /root/userbot
 
